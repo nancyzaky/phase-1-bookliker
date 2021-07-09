@@ -1,6 +1,7 @@
 const init = () => {
-  let bookList = document.getElementById("list");
   function fetchurl(url) {
+    let bookList = document.getElementById("list");
+
     fetch(url)
       .then((resp) => resp.json())
       .then((data) => {
@@ -22,6 +23,13 @@ const init = () => {
             let bookDesc = document.createElement("p");
             let likesList = document.createElement("ul");
             let likesArr = item.users;
+            bookDesc.innerText = item.description;
+            showPanel.appendChild(bookimage);
+            showPanel.appendChild(bookTitle);
+            showPanel.appendChild(bookSub);
+            showPanel.appendChild(bookAuthor);
+            showPanel.appendChild(bookDesc);
+            showPanel.appendChild(likesList);
             likesArr.forEach((person) => {
               let likePerson = document.createElement("li");
               likePerson.innerText = person.username;
@@ -33,6 +41,7 @@ const init = () => {
             likesList.appendChild(likesBtn);
             let clicked = false;
             likesBtn.addEventListener("click", (e) => {
+              // e.preventDefault();
               clicked = true;
               let myAddedLike = { id: 1, username: "pouros" };
               if (clicked) {
@@ -48,19 +57,14 @@ const init = () => {
                 })
                   .then((resp) => resp.json())
                   .then((data) => {
-                    bookList.innerHTML = "";
-                    fetchurl("http://localhost:3000/books");
+                    let newLike = document.createElement("li");
+                    newLike.innerHTML = "pouros";
+                    likesList.appendChild(newLike);
+                    //bookList.innerHTML = "";
+                    //fetchurl("http://localhost:3000/books");
                   });
               }
             });
-
-            bookDesc.innerText = item.description;
-            showPanel.appendChild(bookimage);
-            showPanel.appendChild(bookTitle);
-            showPanel.appendChild(bookSub);
-            showPanel.appendChild(bookAuthor);
-            showPanel.appendChild(bookDesc);
-            showPanel.appendChild(likesList);
           });
         });
       });
@@ -69,3 +73,5 @@ const init = () => {
 };
 
 window.addEventListener("DOMContentLoaded", init);
+
+//
