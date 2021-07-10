@@ -57,9 +57,16 @@ const init = () => {
                 })
                   .then((resp) => resp.json())
                   .then((data) => {
-                    let newLike = document.createElement("li");
-                    newLike.innerHTML = "pouros";
-                    likesList.appendChild(newLike);
+                    likesList.innerHTML = "";
+                    let likesArr = data.users;
+                    likesArr.forEach((item) => {
+                      let listItem = document.createElement("li");
+                      listItem.innerText = item.username;
+                      likesList.appendChild(listItem);
+                      likesBtn.innerText = "unLike";
+                      likesList.appendChild(likesBtn);
+                    });
+
                     //bookList.innerHTML = "";
                     //fetchurl("http://localhost:3000/books");
                   });
